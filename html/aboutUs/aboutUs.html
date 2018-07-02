@@ -116,6 +116,8 @@
 	        vm.about();
 	        mui('#header').on('tap','.mui-btn',function(){
 	        	var curr = plus.webview.currentWebview();
+	        	curr.close();
+	        	plus.runtime.restart();
 				mui.openWindow({
 			         url: '../login/login.html', 
 			         id:'login',				         			        
@@ -127,7 +129,7 @@
 			          autoShow:false
 			         }
 			    });
-			    curr.close();
+			    
 	        })
 	        mui('.mui-content').on('tap', '.mui-btn', function(e) {
 	            mui('.mui-content .mui-btn').button('loading');
