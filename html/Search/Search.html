@@ -220,7 +220,7 @@
 
 	        </div>
 		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" v-show='isShow' v-cloak>
+		<div id="pullrefresh" v-show='isShow' class="mui-content mui-scroll-wrapper"  v-cloak>
 			<div class="mui-scroll">
 		        <!--列表项-->
 				<div  style='padding: 10px;' class="mui-card rowf ac be"  v-for="num in List " >
@@ -417,6 +417,8 @@
 //			进入详情
 			$('.mui-scroll').on('tap','.mui-card',function(e){
 				vm.input = $(this).find('.run_2').text().split(' ')[1];
+				mui("#pullrefresh").pullRefresh().setStopped(true);
+				mui('#pullrefresh').pullRefresh().setStopped(true); //暂时禁止滚动
 				vm.isShow= false;
 				vm.index = $(this).index();
 				vm.list = vm.List[$(this).index()]			

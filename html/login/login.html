@@ -96,10 +96,10 @@
          		<img src="../../images/logo2.png"/>
          	</div>
          	<div class="list login-input" style="margin-top: 3rem;position: relative;">
-			    <label class="item item-input login-inline">
-			    	<img class="input_img" src="../../images/people_login.png" alt="" />
-				    <input type="text" v-model="name" id="name" placeholder="请输入您的工号" autofocus >
-				     <span class="input-label" style="display: none;">请输入工号</span>
+			    	<label class="item item-input login-inline">
+				    	<img class="input_img" src="../../images/people_login.png" alt="" />
+					    <input type="text" v-model="name" id="name" placeholder="请输入您的工号" autofocus >
+					     <span class="input-label" style="display: none;">请输入工号</span>
 				  </label>				  
 				  <label class="item item-input login-inline">
 				  	<img class="input_img" src="../../images/password.png" alt="" />
@@ -180,7 +180,6 @@
 		//								存储登陆人员信息
 										localStorage.setItem('password',that.password);
 										localStorage.setItem('MyUserId',that.personMesg.MyUserId);
-										localStorage.setItem('Mobile',that.personMesg.Mobile);
 										localStorage.setItem('Username',that.personMesg.Username);
 										localStorage.setItem('Modules',JSON.stringify(that.personMesg.Modules));
 		//								打开首页

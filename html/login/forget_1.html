@@ -126,7 +126,7 @@
    		var vm = new Vue({
 		       	el:'#content',
 		        data:{
-		        	num:localStorage.getItem('Username'),
+		        	num:'',
 		        	pass:'',
 		        	code:'',
 		        	name:'',
@@ -136,6 +136,17 @@
 		        },
 		        methods:{
 		        	forget:function(){
+		        		$.get(url_all+"/api/CloudMobileV1/ForgetPassword?",
+							{ Username:vm.num,
+								CompanyCode:vm.unitCoding,
+								},
+						  function(data){
+								console.log(data.data)
+								localStorage.setItem('Mobile',data.data);
+								localStorage.setItem('code',vm.unitCoding);
+								localStorage.setItem('Username',vm.num);
+						  }
+						);
 		        		if (this.pass.length <= 0 ||this.num.length<=0 ) 
 				            {
 				                mui.toast("账号或验证码不能为空！");

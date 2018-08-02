@@ -113,7 +113,7 @@
       	mui.init();
 		mui.plusReady(function(){
 			//最新版本下载
-// 			vm.updata();
+   			vm.updata();
 		});
 //    	模块功能展示
       	var Modules = JSON.parse(localStorage.getItem('Modules'));
@@ -158,35 +158,46 @@
             	status:[],
             	statusEnd:[],
             	websocket:'',
-            	old_version:1.0
+            	old_version:'1.0.0'
 
             },
             methods:{
             	updata:function(a){
-            		that = this;            		
+            		that = this;  
+//          		/api/MobileV2/GetLastVersion
 					$.get(url_all+"/api/MobileV2/GetLastVersion",
 						{ },
 					  function(data){
-					    if(that.old_version<data.data.PackageVersion){	
-					    	mui.toast('正在下载最新版本')
-	            			var ua = navigator.userAgent.toLowerCase();
-	           				 if(/iphone|ipad|ipod/.test(ua)) {
-									plus.runtime.openURL(data.data.Url);
-		       				}else if(/android/.test(ua)){
-								var dtask = plus.downloader.createDownload( data.data.Url, {}, function ( d, status ) {
-								    if ( status == 200 ) { // 下载成功
-								    	alert( "XIA: " + status ); 
-								        var path = d.filename;
-								        console.log(d.filename);
-								        plus.runtime.install(path);  // 安装下载的apk文件
-								    } else {//下载失败			
-								        alert( "Download failed: " + status ); 
-								    }  
-								});
-								dtask.start(); 
-		       				}else{
-		       				 	return ;
-		       				}
+					    if(that.old_version.replace('.', '')<data.data.PackageVersion.replace('.', '')){
+					    	var btnArray = ['否', '是'];
+								mui.confirm('已有最新版本是否下载？', '提示', btnArray, function(e) {
+									if (e.index == 1) {
+										mui.toast('正在下载最新版本')
+				            			var ua = navigator.userAgent.toLowerCase();
+				           				 if(/iphone|ipad|ipod/.test(ua)) {
+												plus.runtime.openURL(data.data.Url);
+					       				}else if(/android/.test(ua)){
+											var dtask = plus.downloader.createDownload( data.data.Url, {}, function ( d, status ) {
+											    if ( status == 200 ) { // 下载成功
+			//								    	alert( "XIA: " + status ); 
+											        var path = d.filename;
+											        console.log(d.filename);
+											        plus.runtime.install(path);  // 安装下载的apk文件
+											    } else {//下载失败			
+											        alert( "Download failed: " + status ); 
+											    }  
+											});
+											dtask.start(); 
+					       				}else{
+					       				 	return ;
+					       				}
+										
+																				
+									} else {
+										mui.toast('取消下载')
+									}
+								})
+					    	
 					    }else{
 					    	mui.toast('已经是最新版本')
 					    }

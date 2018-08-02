@@ -217,8 +217,7 @@
 	                    PartitionId:0,
 	                    List:[],
 	                    noInformation:0,
-	                    height:'',
-	                    HasChildrens:''	          
+	                    height:''
 	                    
 	                },
 					methods:{
@@ -346,7 +345,6 @@
 						            cursor: 'pointer',
 						            events: {
 						                click: function (event) {
-						                	vm.HasChildrens= '';
 						                	vm.PartitionId= '';
 						                	for(x in vm.List){
 						                		if(vm.List[x].Name==event.point.category){
@@ -427,31 +425,29 @@
 		    	//点击进入下一个页面  并传值PID
 				$('#container').on('tap',function(e){
 					if(e.target.innerHTML){					
-						vm.HasChildrens= '';
 	                	vm.PartitionId= '';
 	                	for(x in vm.List){
 	                		if(vm.List[x].Name==e.target.innerHTML){
-	                			vm.PartitionId = vm.List[x].PartitionId;
-	                			vm.HasChildrens = vm.List[x].HasChildrens;
-	                			
+	                			vm.PartitionId = vm.List[x].CompanyId;
+	                			mui.openWindow({
+							         url: 'DayReportC.html', 
+							         id:'DayReportC',
+							         extras:{
+					               		eName:e.target.innerHTML,
+					                    code:vm.PartitionId,
+					                  	pretime:that.input
+					               	},
+							         show:{
+							            aniShow:'slide-in-right',
+							            duration:300
+							          },
+							         waiting:{
+							          autoShow:false
+							         }
+							    });
 	                		}
 	                	}
-	                	mui.openWindow({
-					         url: 'DayReportC.html', 
-					         id:'DayReportC',
-					         extras:{
-			               		eName:e.target.innerHTML,
-			                    code:vm.PartitionId,
-			                  	pretime:that.input
-			               	},
-					         show:{
-					            aniShow:'slide-in-right',
-					            duration:300
-					          },
-					         waiting:{
-					          autoShow:false
-					         }
-					    });
+	                	
 					}
 				})
 

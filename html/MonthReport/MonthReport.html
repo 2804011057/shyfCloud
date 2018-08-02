@@ -280,6 +280,7 @@
 											that.Sum=[];
 											that.Name = [];
 											that.List = data.data;
+											console.log(that.List)
 											that.List.map(function(item,index){
 												that.noInformation+=item.Count;
 												that.Count.push(item.Count);
@@ -439,31 +440,31 @@
 			    	//进入下一个页面 并且传值PID等
 					$('#containerY').on('tap',function(e){
 						if(e.target.innerHTML){
-							if(e.target.innerHTML){
-								for(x in vm.List){						                
-			                		if(vm.List[x].Name==e.target.innerHTML){
-			                			vm.PartitionId = vm.List[x].CompanyId;
-			                			console.log(vm.PartitionId)
-			                		}
-			                	}
-							};
+							for(x in vm.List){						                
+		                		if(vm.List[x].Name==e.target.innerHTML){
+		                			vm.PartitionId = vm.List[x].CompanyId;
+		                			mui.openWindow({
+								         url: 'MonthReportC.html', 
+								         id:'MonthReportC',
+								         extras:{
+						               		eName:e.target.innerHTML,
+						                    code:vm.PartitionId,
+						                  	pretime:that.input
+						               	},
+								         show:{
+								            aniShow:'slide-in-right',
+								            duration:300
+								          },
+								         waiting:{
+								          autoShow:false
+								         }
+								    });
+		                			console.log(vm.PartitionId)
+		                		}
+		                	}
+							
 		
-		                	mui.openWindow({
-						         url: 'MonthReportC.html', 
-						         id:'MonthReportC',
-						         extras:{
-				               		eName:e.target.innerHTML,
-				                    code:vm.PartitionId,
-				                  	pretime:that.input
-				               	},
-						         show:{
-						            aniShow:'slide-in-right',
-						            duration:300
-						          },
-						         waiting:{
-						          autoShow:false
-						         }
-						    });
+		                	
 						}
 		
 						

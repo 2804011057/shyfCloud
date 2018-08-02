@@ -177,9 +177,9 @@
 			</ul>	        
 	    </div>
 	    <div class='scroll'>
-	    	<div class="noInformation rowf M ac" v-show="!historyData[0].TransDelayCount">暂无信息</div>
-	    	<ul class="mui-table-view " v-show="historyData[0].TransDelayCount">
-            	<li class="rowf mui-table-view-cell text_center" v-for="num in historyData" v-show='historyData'>
+	    	<!--<div class="noInformation rowf M ac" v-show="!historyData[0].TransDelayCount">暂无信息</div>-->
+	    	<ul class="mui-table-view " >
+            	<li class="rowf mui-table-view-cell text_center" v-for="num in historyData">
                     <span class="col-50 M" v-text='num.CompanyName'></span>
                     <span class='col-25 M' v-text='num.TransDelayCount'></span>
                     <span class='col-25 M' v-text='num.StorageDelayCount'></span>
