@@ -158,14 +158,14 @@
             	status:[],
             	statusEnd:[],
             	websocket:'',
-            	old_version:'1.0.0'
+            	old_version:'1.0.2'
 
             },
             methods:{
             	updata:function(a){
             		that = this;  
 //          		/api/MobileV2/GetLastVersion
-					$.get(url_all+"/api/MobileV2/GetLastVersion",
+					$.get(url_all+"/api/CloudMobileV1/GetLastVersion",
 						{ },
 					  function(data){
 					    if(that.old_version.replace('.', '')<data.data.PackageVersion.replace('.', '')){

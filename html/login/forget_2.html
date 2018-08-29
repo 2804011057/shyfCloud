@@ -125,7 +125,7 @@
 		    <h1 class="mui-title">找回密码</h1>
 		</header>
 		<div class="mui-content" id='content'>
-		    <div class="top">
+		    <div class="top" v-cloak>
 		    	<p class="tc">您正在通过以下手机找回密码</p>
 		    	<p class="tc">{{phone}}</p>
 		    </div>
@@ -158,7 +158,8 @@
 	<script type="text/javascript" src="../../js/vue.js"></script>
 	<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		mui.init();            
+		mui.init(); 
+
    		var vm = new Vue({
 		       	el:'#content',
 		        data:{
@@ -166,7 +167,7 @@
 		        	pass:'',
 		        	name:'',
 		        	nextCode:'',
-		        	phone:localStorage.getItem('Mobile'),
+		        	phone:'',
 		        	time:60,
 		        	show:false,
 		        	newPass:''
@@ -178,30 +179,35 @@
 		        		$.ajax({
 							url: url_all+"/api/CloudMobileV1/ModifyPassword?",		 
 							dataType: 'json',
-							data:{
-				
+							data:{				
 								Username:localStorage.getItem('Username'),
 								NewPassword:that.newPass,
 								CheckCode:that.pass
 							},
 							method: 'get',
 							success: function(data) {
-								console.log(data);
-//									进入下一级
-			            		mui.openWindow({
-							        url: 'login.html', 
-							        id:'login',
-									extras:{
-					                    
-				               		},
-							        show:{
-							            aniShow:'slide-in-right',
-							            duration:300
-							          },
-							        waiting:{
-							          autoShow:false
-							    	}
-							    });
+								console.log(JSON.stringify(data));
+								if(data.message =='OK'){
+									mui.toast('密码修改成功');
+									// 进入下一级
+									mui.openWindow({
+											url: 'login.html', 
+											id:'login',
+											extras:{
+															
+													},
+											show:{
+													aniShow:'slide-in-right',
+													duration:300
+												},
+											waiting:{
+												autoShow:false
+										}
+									});
+								}else{
+									mui.toast(data.message);
+								}
+//									
 							},
 							error: function(xhr) {
 								mui.toast('验证码错误');
@@ -228,12 +234,24 @@
 				        				
 				        			}
 				        		},1000);
-				       //发送手机号  返回验证码；
-				       $.ajax({
+
+
+		        	}
+		
+		        }
+			});
+			vm.get();
+			setTimeout(function(){
+				vm.phone = localStorage.getItem('Mobile')
+			},1000)
+			$('#btnTime').on('tap',function(){
+						//发送手机号  返回验证码；
+						$.ajax({
 							url: url_all+"/api/CloudMobileV1/ForgetPassword?",		 
 							dataType: 'json',
 							data:{
-								Username:localStorage.getItem('Username')
+								Username:localStorage.getItem('Username'),
+								CompanyCode:localStorage.getItem('code')
 							},
 							method: 'get',
 							success: function(data) {
@@ -243,11 +261,6 @@
 						
 							}
 						});
-
-		        	}
-		
-		        }
-			});
-			vm.get()
+			})
 	</script>
 

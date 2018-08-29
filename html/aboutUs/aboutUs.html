@@ -93,19 +93,18 @@
 	                data:{
 	                	list:[],
 	                	isShow:true,
-	                	old_version:'1.0.0',
+	                	old_version:'1.0.2',
 	                	new_version:'',
 	                	Url:''
                 	},
 	                methods:{
 	                	about:function(a){
-	                		that = this;
-	                		
+	                		that = this;                		
 					        $.get(url_all+"/api/CloudMobileV1/GetLastVersion",
 								{ },
 						  		function(data){
 						  			that.new_version = data.data.PackageVersion;
-						  			console.log(data.data)
+						  			console.log(JSON.stringify(data.data))
 						  			if(that.old_version.replace('.', '')<that.new_version.replace('.', '')){
 						  				that.isShow = true
 						  			}else{
@@ -144,7 +143,6 @@
 						var dtask = plus.downloader.createDownload( that.Url, {}, function ( d, status ) {
 							mui('.mui-btn').button('reset');
 						    if ( status == 200 ) { // 下载成功
-//						    	alert( "XIA: " + status ); 
 						        var path = d.filename;
 						        console.log(d.filename);
 						        plus.runtime.install(path);  // 安装下载的apk文件

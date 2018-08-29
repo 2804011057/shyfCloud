@@ -148,8 +148,8 @@
 	   		var vm = new Vue({
 	               	el:'#content',
 	                data:{
-	                	name:'admin',
-	                	password:'Abcde_12345',
+	                	name:'',
+	                	password:'',
 	                	show:false,
 	                	info:'',
 	                	endemicAreaId:'',
@@ -169,7 +169,7 @@
 								url: url_all+'/api/CloudMobileV1/Login?',		 
 								dataType: 'json',
 								data:{
-									Username:that.name,
+										Username:that.name,
 						    		Password:that.password
 								},
 								method: 'get',
