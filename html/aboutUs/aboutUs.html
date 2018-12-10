@@ -28,6 +28,7 @@
 			.aboutus p img{ margin: 0px auto; display: block; max-width: 70%;}
 			.aboutus p{ color: #666; line-height: 1.7;}
 			.company i{
+				text-align: right;
 				word-wrap:break-word; width:200px;
 			}
 			.company span{
@@ -49,7 +50,7 @@
 		<header  id="header" class="mui-bar mui-bar-nav">
 		      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">关于我们</h1>
-		    <button class="mui-btn mui-btn-green mui-pull-right">注销</button>
+		    <button class="mui-btn mui-btn-green mui-pull-right">意见反馈</button>
 		</header>
 		<div class="mui-content" id='content'>
 				<div class="aboutus"style="background-color: #fff;padding-bottom: 15px;">
@@ -85,7 +86,10 @@
 	    <script type="text/javascript">
 	    	mui.init();			
 	        mui.plusReady(function(){
-	            var self = plus.webview.currentWebview();	                
+	            plus.runtime.getProperty(plus.runtime.appid,function(inf){
+			　　　　　　vm.old_version=inf.version;
+			　　　　});
+							vm.about();
 	        });
 
             var vm = new Vue({
@@ -93,7 +97,7 @@
 	                data:{
 	                	list:[],
 	                	isShow:true,
-	                	old_version:'1.0.2',
+	                	old_version:'',
 	                	new_version:'',
 	                	Url:''
                 	},
@@ -116,24 +120,25 @@
 	              		}
 	                }
 	        });
-	        vm.about();
-	        mui('#header').on('tap','.mui-btn',function(){
-	        	var curr = plus.webview.currentWebview();
-	        	curr.close();
-	        	plus.runtime.restart();
-				mui.openWindow({
-			         url: '../login/login.html', 
-			         id:'login',				         			        
-			         show:{
-			            aniShow:'slide-in-right',
-			            duration:300
-			          },
-			         waiting:{
-			          autoShow:false
-			         }
-			    });
-			    
-	        })
+					mui('#header').on('tap','.mui-btn',function(){
+						// 跳转意见反馈页面
+							mui.openWindow({
+									url: 'feedback.html', 
+									id:'feedback',
+									extras:{
+													
+											},
+									show:{
+											aniShow:'slide-in-right',
+											duration:300
+										},
+									waiting:{
+										autoShow:false
+								}
+							});
+									
+					});
+	        
 	        mui('.mui-content').on('tap', '.mui-btn', function(e) {
 	            mui('.mui-content .mui-btn').button('loading');
 	            var ua = navigator.userAgent.toLowerCase();

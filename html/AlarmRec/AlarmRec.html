@@ -135,7 +135,8 @@
 			  
 			}
 			.mui-table-view-cell{
-				padding: 11px 0;
+				padding: 11px 1.5rem;
+				
 			}
 			.scroll{
 				padding-top: 148px;
@@ -143,6 +144,14 @@
 			input[type=text] {
 			    padding: 0;
 			}
+			.text_right{
+				text-align: right;
+			}
+			.scroll .mui-table-view {
+				color: rgb(128, 128, 128);
+				font-size: 1.4rem;
+			}
+
 
 		</style>
 		<script type="text/javascript" src="../../js/vue.js" ></script>
@@ -169,20 +178,19 @@
 	            </div>           
 	        </div>
 	        <ul class="mui-table-view" >
-	        	<li class="rowf mui-table-view-cell text_center">
-					<span class="col-50 M">医院</span>
-					<span class="col-25 M">超时转运</span>
-					<span class="col-25 M">超时入库</span>
-				</li>
+	        	<li class="rowf mui-table-view-cell ">
+							<span class="col-50 ">医院</span>
+							<span class="col-25 text_right">超时转运</span>
+							<span class="col-25 text_right">超时入库</span>
+						</li>
 			</ul>	        
 	    </div>
 	    <div class='scroll'>
-	    	<!--<div class="noInformation rowf M ac" v-show="!historyData[0].TransDelayCount">暂无信息</div>-->
 	    	<ul class="mui-table-view " >
-            	<li class="rowf mui-table-view-cell text_center" v-for="num in historyData">
-                    <span class="col-50 M" v-text='num.CompanyName'></span>
-                    <span class='col-25 M' v-text='num.TransDelayCount'></span>
-                    <span class='col-25 M' v-text='num.StorageDelayCount'></span>
+            	<li class="rowf mui-table-view-cell R" v-for="num in historyData">
+                    <span class="col-50" v-text='num.CompanyName'></span>
+                    <span class='col-25 text_right' v-text='num.TransDelayCount'></span>
+                    <span class='col-25 text_right' v-text='num.StorageDelayCount'></span>
             	</li>
 			</ul>
 	    </div>

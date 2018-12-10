@@ -20,14 +20,14 @@
 
 		.homeTop .code{
 			position: absolute;
-			top:2rem;
-			right: 3rem;
-		    color: white;
-		    font-size: 1.4rem;
+			top:1rem;
+			right: 1rem;
+			width: 10%;
 		}
 		.homeTop span {
 		    color: white;
-		    font-weight: bold;
+		    font-weight: 500;
+				letter-spacing: 0.5rem;
 		    font-size: 2.5rem;  
 		}
 		.mui-grid-view.mui-grid-9 .mui-table-view-cell{
@@ -41,9 +41,6 @@
 		}
 		.homePage_top .mui-table-view{
 			margin-bottom: 1rem;
-		}
-		.homePage_top img{
-			height: 4rem;
 		}
 		.homePage_top .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
 		    margin: .5rem 0;
@@ -88,6 +85,24 @@
 		.mui-grid-view.mui-grid-9{
 			background-color: white;
 		}
+				@media only screen and (min-width: 320px){
+					.homeTop{
+						height: 11rem;
+					} 
+				}
+				@media only screen and (min-width: 360px){
+						.homeTop{
+							height: 13rem;
+						} 
+				}
+				@media only screen and (min-width: 414px){
+						.homeTop{
+							height: 15rem;
+						} 
+				}
+				a img{
+					height: 3.5rem;
+				}
     </style>
 </head>
 <body>
@@ -95,8 +110,8 @@
 		<div class="homePage_top">
 			<!--标题-->
 			<div class="homeTop rowf ac M">
-	            <span class="text_center">医废追溯管理系统</span>
-	            <span class="code">用户：{{number}}</span>
+	            <span class="text_center">医废云平台</span>
+	            <img class="code" src="images/user.png" >
 	        </div>
 	        
 		    <ul class="mui-table-view mui-grid-view mui-grid-9">	            
@@ -110,11 +125,69 @@
 <script src="js/jquery-3.0.0.min.js"></script>
 <script src="js/vue.js"></script>
 <script type="text/javascript" charset="utf-8">
-      	mui.init();
-		mui.plusReady(function(){
+		mui.init();
+		mui.plusReady(function(){			
+			//仅支持竖屏显示
+//			plus.screen.lockOrientation("portrait-primary");
+//			document.addEventListener("newintent", function() {
+//				openWebviewFromOthers();
+//				alert('1')
+//			});
+			mui.fire(plus.webview.getWebviewById("AlarmRec"),'refresh');
+			plus.push.addEventListener("click", function(msg) {
+				alert('2')
+				pushGetRun(msg.payload);				
+			}, false);
+			plus.push.addEventListener("receive", function(msg) {
+				alert('3')
+				//获取透传数据
+				var data = JSON.parse(msg.payload);
+				console.log(JSON.stringify(msg))
+				//创建本地消息
+				plus.push.createMessage(data.content, data.payload, {
+		              title: data.title,
+		              cover: false
+		         });
+			}, false);
+			openWebviewFromOthers();
+			
+			plus.runtime.getProperty(plus.runtime.appid,function(inf){
+	　　　　　　	vm.old_version=inf.version;				
+	　　　　	});
+			function getPushInfo(){
+				var info = plus.push.getClientInfo();
+				mui.toast( "获取客户端推送标识信息：" );
+				mui.toast( "token: "+info.token );
+				mui.toast( "clientid: "+info.clientid );
+				mui.toast( "appid: "+info.appid );
+				mui.toast( "appkey: "+info.appkey );
+			}
+			getPushInfo()
 			//最新版本下载
-   			vm.updata();
+//			vm.updata();
 		});
+		function pushGetRun(payload) {
+			setTimeout(function(){
+				alert('9999')
+				mui.fire("AlarmRec");
+			},200)
+			
+//			payload = JSON.parse(payload);
+//			var id = payload.id;
+//			var autoShow = payload.autoshow;
+//			var event = payload.event;
+//			var params = JSON.stringify(payload.params);
+			//用参数打开指定页面
+			
+		}
+		//获取通知栏（app未启动）点击、第三方程序启动本app
+		function openWebviewFromOthers() {
+			var args = plus.runtime.arguments;
+				if(args) {
+					pushGetRun(args);
+				}
+		}
+
 //    	模块功能展示
       	var Modules = JSON.parse(localStorage.getItem('Modules'));
       	var img= [{ModuleKey: "DayReport",pic:"images/yfri.png.png"},
@@ -131,13 +204,12 @@
       		img.map(function(item_1,index_1){
       			if(item_1.ModuleKey == item.ModuleKey){
       				var html='';
-		      		html+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#" class="'+item.ModuleKey+'">'+      	
+		      		html+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#" class="'+item.ModuleKey+'">'+      	
 		                  '<img  src="'+item_1.pic+'" alt="">'+
 		                  '<div class="mui-media-body">'+item.Name+'</div></a></li>';
 		      		$('.homePage_top .mui-table-view').append(html);
       			}
       		})      		
-      		console.log(index)
       	});
       	
       	
@@ -158,7 +230,7 @@
             	status:[],
             	statusEnd:[],
             	websocket:'',
-            	old_version:'1.0.2'
+            	old_version:''
 
             },
             methods:{
@@ -214,23 +286,42 @@
 		$('.mui-table-view.info').height(vm.height+'px')
 //		进入模块
 		$('.mui-table-view-cell').on('tap',function(){
-//			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_UNKNOW || plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-//					plus.nativeUI.toast("当前网络异常，请检查后重试");
-//					return;
-//			}
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_UNKNOW || plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+					plus.nativeUI.toast("当前网络异常，请检查后重试");
+					return;
+			}
 			var html = $(this).find('a').attr('class');
-      			mui.openWindow({
-			         url: 'html/'+html+'/'+html+'.html', 
-			         id:html,
-			         show:{
-			            aniShow:'slide-in-right',
-			            duration:300
-			          },
-			         waiting:{
-			          autoShow:false
-			         }
-			    });
-      	})		
+      			var pageOne = plus.webview.getWebviewById(html);
+      				if(pageOne == null){
+      					mui.openWindow({
+      						url: 'html/'+html+'/'+html+'.html', 
+      						id:html,
+      						show:{
+      								aniShow:'slide-in-right',
+      								duration:300
+      							},
+      						waiting:{
+      							autoShow:false
+      						}
+      					});
+      				}else{
+      					pageOne.close();
+      				};
+      	});
+				// 进入个人中心
+				mui('.homeTop').on('tap','.code',function(){
+					mui.openWindow({
+						url: 'html/personal/personal.html', 
+						id:'personal',
+						show:{
+								aniShow:'slide-in-right',
+								duration:300
+							},
+						waiting:{
+							autoShow:false
+						}
+					});			    
+				});
       	      	
       	/**
 		 * Android返回键处理（IOS只能通过home键来杀掉程序）

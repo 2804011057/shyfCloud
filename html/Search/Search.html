@@ -46,11 +46,11 @@
 			    height: 9rem;
 			    padding-right: 1rem;
 			}
-			.run .col-40.tc{
+			.run .colRight.tc{
 			    border-bottom: .1rem grey solid;
 			    height: 9rem;
 			}
-			.run .col-40.tc p{
+			.run .colRight.tc p{
 			    margin: .5rem 0;
 			    font-size: 1.5rem;
 			}
@@ -179,11 +179,11 @@
 		    height: 9rem;
 		    paddiv-right: 1rem;
 		}
-		.run .col-40.tc{
+		.run .colRight.tc{
 		    border-bottom: .1rem grey solid;
 		    height: 9rem;
 		}
-		.run .col-40.tc p{
+		.run .colRight.tc p{
 		    margin: .5rem 0;
 		    font-size: 1.5rem;
 		}
@@ -197,6 +197,21 @@
 		.run_list {
 		    margin: 0 1rem;
 		    border-bottom: .1rem grey solid;
+		}
+		.mui-card.detail>div{
+			padding: 0 1rem;
+		}
+		.mui-card.detail .run_list{
+			padding: 0;
+		}
+		p.h4.hidden{
+			color: white;
+		}
+		p.h4.run_1,p.h4.run_2{
+			color: rgb(55,110,157);
+		}
+		p.h4.run_3{
+			text-align: right;
 		}
 
 		</style>
@@ -225,11 +240,12 @@
 		        <!--列表项-->
 				<div  style='padding: 10px;' class="mui-card rowf ac be"  v-for="num in List " >
 	                <div>
-	                    <p class="h4 run_1">医院： {{num.CompanyName}}</p>
+	                    
 	                    <p class="h4 run_2">编号： {{num.YfCode}}</p>
+											<p class="h4 run_1">医院： {{num.CompanyName}}</p>
 	                </div>
 	                <div>
-	                    <p class="h4 run_3 ">{{num.PartitioinName}}</p>
+	                    <p class="h4 run_3">{{parseFloat(num.PackWeight).toFixed(2)}}kg</p>
 	                    <p class="h4 run_3">{{num.YfTypeName}}</p>
 	                </div>
 	            </div>
@@ -237,25 +253,25 @@
 		</div>
 		<!--详情信息-->
 		<div v-show='!isShow' id="pullrefresh_1" v-cloak>
-	            <div class="mui-card" style='padding:10px;padding-bottom:0px' >
+	            <div class="mui-card detail" style='padding:10px;padding-bottom:0px' >
 	                <div class="rowf ac be run_list" >
-	                    <div>
-	                        <p class="h4 run_1">{{list.CompanyName}}</p>
+	                    <div>  
 	                        <p class="h4 run_2">{{list.YfCode}}</p>
+													<p class="h4 run_1">{{list.CompanyName}}</p>
 	                    </div>
 	                    <div>
-	                        <p class="h4 run_3">{{list.PartitionName}}</p>
+	                        <p class="h4 run_3">{{parseFloat(list.PackWeight).toFixed(2)}}kg</p>
 	                        <p class="h4 run_3">{{list.YfTypeName}}</p>
 	                    </div>
 	
 	                </div>
-					<div class="rowf ac " style="margin-top:1rem;">
-	                    <div class="col-50 rowf M ac" style="position: relative;height:10rem;" >
+									<div class="rowf ac " style="margin-top:1rem;">
+	                    <div class="col-50 rowf L ac" style="position: relative;height:10rem;" >
 	                        <p class="h3" style="margin-top:-2.5rem;">医废出库</p>
 	                        <span :class="{ blue_1: list.OutTimeString,blue_2:true,}" style="width: 1rem;height: 1rem;border-radius: 50%;position: absolute;top:3rem;right: 2rem;z-index: 10"></span>
 	                        <span style="height: 11rem;width: .1rem;background-color: #ccc;position: absolute;top:3.5rem;right: 2.5rem;z-index: 1"></span>
 	                    </div>
-	                    <div class="col-40 tc rowf ac M" v-show="list.OutTimeString" style="color:#333;">
+	                    <div class="col-50 colRight tc rowf ac M" v-show="list.OutTimeString" style="color:#333;">
 	                        <div>
 	                            <p>{{list.OutTimeString}}</p>
 	                            <div >
@@ -265,7 +281,7 @@
 	                                </p>
 	                                <p class="rowf be">
 	                                    <span>重量：</span>
-	                                    <span>{{list.OutWeight}}</span>
+	                                    <span>{{parseFloat(list.OutWeight).toFixed(2)}}kg</span>
 	                                </p>
 	                            </div>
 	                        </div>
@@ -273,12 +289,12 @@
 	                    </div>
 	                </div>
 	                <div class="rowf ac "  >
-	                    <div class="col-50 rowf M ac" style="position: relative;height:9rem;" >
+	                    <div class="col-50 rowf L ac" style="position: relative;height:9rem;" >
 	                        <p class="h3" style="margin-top:-2.8rem;">医废入库</p>
 	                        <span :class="{ blue_1: list.StorageTimeString,blue_2:true,}" style="width: 1rem;height: 1rem;border-radius: 50%;position: absolute;top:3rem;right: 2rem;z-index: 10"></span>
 	                        <span style="height: 10rem;width: .1rem;background-color:#ccc;position: absolute;top:3.5rem;right: 2.5rem;z-index: 1"></span>
 	                    </div>
-	                    <div class="col-40  rowf ac M" v-show="list.StorageTimeString" style="color:#333;margin-top: -1.5rem;">
+	                    <div class="col-50 colRight rowf ac M" v-show="list.StorageTimeString" style="color:#333;margin-top: -1.5rem;">
 	                      <div>
 	                      <p>{{list.StorageTimeString}}</p>
 	                       <div >
@@ -288,7 +304,7 @@
 	                                </p>
 	                                <p class="rowf be">
 	                                    <span>重量：</span>
-	                                    <span>{{list.StorageWeight}}</span>
+	                                    <span>{{parseFloat(list.StorageWeight).toFixed(2)}}kg</span>
 	                                </p>
 	                           
 	                            </div>
@@ -296,12 +312,12 @@
 	                    </div>
 	                </div>
 	                <div class="rowf ac " >
-	                    <div class="col-50 rowf M ac" style="position: relative;height:10rem;" >
+	                    <div class="col-50 rowf L ac" style="position: relative;height:10rem;" >
 	                        <p class="h3" style="margin-top:-3rem;">医废交接</p>
 	                        <span :class="{ blue_1: list.TransTimeString,blue_2:true,}" style="width: 1rem;height: 1rem;border-radius: 50%;position: absolute;top:3rem;right: 2rem;z-index: 10"></span>
 	                        <span style="height: 13rem;width: .1rem;background-color: #ccc;position: absolute;top:3.5rem;right: 2.5rem;z-index: 1"></span>
 	                    </div>
-	                    <div class="col-40 rowf ac M" v-show="list.TransTimeString" style="color:#333;">
+	                    <div class="col-50 colRight rowf ac M" v-show="list.TransTimeString" style="color:#333;">
 	                       	<div>
 	                            <p>{{list.TransTimeString}}</p>
 	                            <div >
@@ -311,7 +327,7 @@
 	                                </p>
 	                                <p class="rowf be">
 	                                    <span>重量：</span>
-	                                    <span>{{list.TransWeight}}</span>
+	                                    <span>{{parseFloat(list.TransWeight).toFixed(2)}}kg</span>
 	                                </p>
 	                            </div>
 	                        </div>
@@ -319,11 +335,11 @@
 	                    </div>
 	                </div>
 	                <div class="rowf ac " >
-	                    <div class="col-50 rowf M ac" style="position: relative;height: 10rem" >
+	                    <div class="col-50 rowf L ac" style="position: relative;height: 10rem" >
 	                        <p class="h3" style="margin-top:1.5rem;">医废打包</p>
 	                        <span :class="{blue_2:true, blue_1: list.PackTimeString}" style="width: 1rem;height: 1rem;border-radius: 50%;position: absolute;top:5.5rem;right: 2rem;z-index: 9"></span>
 	                    </div>
-	                    <div class="col-40  rowf ac M" v-show="list.PackTimeString" style="height: 9rem;border: none;color: #333;margin-top: 1.5rem;">
+	                    <div class="col-50 colRight rowf ac M" v-show="list.PackTimeString" style="height: 9rem;border: none;color: #333;margin-top: 1.5rem;">
 		                    <div class="">
 		                        <p>{{list.PackTimeString}}</p>
 		                        <div >
@@ -333,7 +349,7 @@
 			                        </p>
 			                        <p class="rowf be">
 			                            <span>重量：</span>
-			                            <span>{{list.PackWeight}}kg</span>
+			                            <span>{{parseFloat(list.PackWeight).toFixed(2)}}kg</span>
 			                        </p>
 			                    </div>
 		                    </div>
@@ -343,30 +359,35 @@
      
         	</div>
 
-		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.js"></script>
 		<script src="../../js/jquery-3.0.0.min.js"></script>
 		<script src="../../js/vue.js"></script>
-		<script src="../../js/mui.pullToRefresh.js"></script>
-		<script src="../../js/mui.pullToRefresh.material.js"></script>
 		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
-
 		<script>
 						
 			mui.init({
+				beforeback: function() { 
+					mui("#pullrefresh").pullRefresh().setStopped(false);
+					if(!vm.isShow){
+						vm.isShow = !vm.isShow;
+						return false;
+					}else{
+						return true;
+					} 
+				},
 				pullRefresh: {
 					container: '#pullrefresh',
 					down: {
+						auto:true,
 						style:'circle',
 						callback: pulldownRefresh
 					},
 					up: {
-						auto:true,
 						contentrefresh: '正在加载...',
 						callback: pullupRefresh
 					}
 				}
 			});
-			mui.plusReady(function(){})
 			
 			var vm = new Vue({
 	               el:'#mbody',
@@ -403,6 +424,7 @@
 			$('.search').on('tap',function(){				
 				vm.count_up = 0;
 				vm.List= [];
+				mui("#pullrefresh").pullRefresh().setStopped(true);
 				pullupRefresh('search');
 				
 			});
@@ -412,16 +434,17 @@
 				vm.input=r;	
 				vm.count_up = 0;
 				vm.List= [];
+				mui("#pullrefresh").pullRefresh().setStopped(true);
 				pullupRefresh('search');
 			};
 //			进入详情
 			$('.mui-scroll').on('tap','.mui-card',function(e){
 				vm.input = $(this).find('.run_2').text().split(' ')[1];
-				mui("#pullrefresh").pullRefresh().setStopped(true);
-				mui('#pullrefresh').pullRefresh().setStopped(true); //暂时禁止滚动
 				vm.isShow= false;
 				vm.index = $(this).index();
-				vm.list = vm.List[$(this).index()]			
+				vm.list = vm.List[$(this).index()];
+				// console.log(vm.list)
+				mui("#pullrefresh").pullRefresh().setStopped(true);
 			})
 
 			/**
@@ -483,7 +506,6 @@
 				vm.count = 0;
 				vm.list=[];
 				vm.arry=[];
-				mui('#pullrefresh').pullRefresh().refresh(true);
 				$.get(url_all+"/api/CloudMobileV1/QueryRubbish?",
 					{ UserId:localStorage.getItem('MyUserId'),
 						PageIndex:vm.count,
@@ -494,7 +516,8 @@
 							vm.List.forEach(function(item){
 								vm.arry.push(item.YfCode);
 							});
-						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							console.log(data.data)
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
 						mui.toast("更新了");
 				  }
 				);

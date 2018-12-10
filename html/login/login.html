@@ -24,12 +24,11 @@
 		.wraper{
 			width: 100%;
 			height: auto;
+			color: rgb(128, 128, 128);
 		}
 		.logo-photo{
 			width: 10rem;
 			height: 10rem;
-			border-radius: 50%;
-			background-color: rgb(90,155,213);
 			text-align: center;
 			margin: 10rem auto 0;
 		}
@@ -93,7 +92,7 @@
         <div class="mui-content" id='content'>
         	<div class="wraper">
          	<div class="logo-photo">
-         		<img src="../../images/logo2.png"/>
+         		<img src="../../images/logoinCloud.png"/>
          	</div>
          	<div class="list login-input" style="margin-top: 3rem;position: relative;">
 			    	<label class="item item-input login-inline">
@@ -179,8 +178,10 @@
 									if(that.personMesg){
 		//								存储登陆人员信息
 										localStorage.setItem('password',that.password);
+										localStorage.setItem('Mobile',that.personMesg.Mobile);
 										localStorage.setItem('MyUserId',that.personMesg.MyUserId);
 										localStorage.setItem('Username',that.personMesg.Username);
+										localStorage.setItem('Name',that.personMesg.Name);
 										localStorage.setItem('Modules',JSON.stringify(that.personMesg.Modules));
 		//								打开首页
 					            		mui.openWindow({

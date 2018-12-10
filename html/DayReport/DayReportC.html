@@ -134,6 +134,9 @@
 		width: 100%;
 	    position: absolute;
 	}
+	p.h4{
+		color: black;
+	}
 			
 
 		</style>
@@ -167,20 +170,20 @@
             <div class="rowf ar M tc homeP_1top" style="margin-top: 1rem;" >
                 <div class="col-33" >
                     <p class="h4 from"><span>{{headCont.PackCount ||0}}</span ><span style="font-size:14px;">&nbsp;袋</span></p>
-                    <p class="h4 from">{{headCont.PackSum>1000?((headCont.PackSum/1000).toFixed(2)||0)+' 吨':((headCont.PackSum)||0)+' kg'}}</p>
+                    <p class="h4 from">{{headCont.PackSum>1000?((headCont.PackSum/1000).toFixed(2)||0)+' 吨':((headCont.PackSum).toFixed(2)||0)+' kg'}}</p>
                     <p class="h4">产生总量</p>
 
                 </div>
                 <div class="col-33" >
                 	<p class="h4 from"><span>{{headCont.TransCount ||0}}</span><span style="font-size:14px;">&nbsp;袋</span></p>
-                    <p class="h4 from">{{headCont.TransSum>1000?((headCont.TransSum/1000).toFixed(2)||0)+' 吨':((headCont.TransSum)||'0')+' kg'}}</p>
+                    <p class="h4 from">{{headCont.TransSum>1000?((headCont.TransSum/1000).toFixed(2)||0)+' 吨':((headCont.TransSum).toFixed(2)||'0')+' kg'}}</p>
                     
                     <p class="h4">移交总量</p>
                 </div>
                 <div class="col-33" >
                     <p class="h4 from"><span>{{headCont.StorageCount ||0}}</span ><span style="font-size:14px;">&nbsp;袋</span></p>
                     <p class="h4 from">
-                    	{{headCont.downWeight>1000?((headCont.StorageSum/1000).toFixed(2)||0)+' 吨':((headCont.StorageSum)||0)+' kg'}}
+                    	{{headCont.downWeight>1000?((headCont.StorageSum/1000).toFixed(2)||0)+' 吨':((headCont.StorageSum).toFixed(2)||0)+' kg'}}
                     </p>
                     <p class="h4">入库总量 </p>
                 </div>

@@ -94,6 +94,9 @@
 .mui-card .mui-control-content {
 				padding: 10px;
 			}
+			p.h4{
+				color: black;
+			}
 			
 
 		</style>
@@ -133,13 +136,13 @@
 	                <div class="col-33" >
 
 	                    <p class="h4 from"><span>{{headCont.TransCount ||0}}</span><span style="font-size:14px;">&nbsp;袋</span></p>
-	                    <p class="h4 from">{{headCont.TransSum>1000?((headCont.TransSum/1000).toFixed(2)||0)+' 吨':((headCont.TransSum)||'0')+' kg'}}</p>
+	                    <p class="h4 from">{{headCont.TransSum>1000?((headCont.TransSum/1000).toFixed(2)||0)+' 吨':((headCont.TransSum).toFixed(2)||'0')+' kg'}}</p>
 	                    <p class="h4">移交总量</p>
 	                </div>
 	                <div class="col-33" >
 	                    <p class="h4 from"><span>{{headCont.StorageCount ||0}}</span ><span style="font-size:14px;">&nbsp;袋</span></p>
 	                    <p class="h4 from">
-	                    	{{headCont.StorageSum>1000?((headCont.StorageSum/1000).toFixed(2)||0)+' 吨':((headCont.StorageSum)||0)+' kg'}}
+	                    	{{headCont.StorageSum>1000?((headCont.StorageSum/1000).toFixed(2)||0)+' 吨':((headCont.StorageSum).toFixed(2)||0)+' kg'}}
 	                    </p>
 	                    <p class="h4">入库总量 </p>
 	                </div>
